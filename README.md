@@ -2,12 +2,14 @@
 
 ## bit field
 
-`R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | `
-`I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |`
-`L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
-`S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |`
-`J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
-`B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |`
+```
+R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | 
+I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |
+L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |
+S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |
+J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |
+B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
+```
 
 ## Registers
 
@@ -56,6 +58,7 @@
 ## メモリ
 
 `L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
+
 `S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |`
 
 | name | operation | `opcode[3:0]` |
@@ -85,5 +88,5 @@ Addi 0xA, R0, R1
 Add R1, R2, R2
 Subi 0x1, R1, R1
 BLT R1, R0, -4
-```
 JALR R0, 0
+```
