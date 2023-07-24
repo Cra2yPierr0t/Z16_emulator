@@ -2,14 +2,12 @@
 
 ## bit field
 
-```
-R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | 
-I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |
-L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |
-S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |
-J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |
-B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
-```
+`R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | `
+`I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |`
+`L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
+`S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |`
+`J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
+`B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |`
 
 ## Registers
 
@@ -36,57 +34,62 @@ B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
 
 `R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | `
 
-| name | operation | `opcode[3:0]` |
-| ---- | --------- | ------------- |
-| Add | `rs2 + rs1 ➜ rd` | `4'h0` |
-| Sub | `rs2 - rs1 ➜ rd` | `4'h1` |
-| Mul | `rs2 * rs1 ➜ rd` | `4'h2` |
-| Div | `rs2 / rs1 ➜ rd` | `4'h3` |
-| Or | `rs2 \| rs1 ➜ rd` | `4'h4` |
-| And | `rs2 & rs1 ➜ rd` | `4'h5` |
-| Xor | `rs2 ^ rs1 ➜ rd` | `4'h6` |
-| SLL | `rs1 << rs2 ➜ rd` | `4'h7` |
-| SRL | `rs1 >> rs2 ➜ rd` | `4'h8` |
+`OP RS2 RS1 RD`
+
+| name | operation | `opcode[3:0]` | example |
+| ---- | --------- | ------------- | ------- |
+| Add | `rs2 + rs1 ➜ rd` | `4'h0` | `ADD G2 G1 G0` |
+| Sub | `rs2 - rs1 ➜ rd` | `4'h1` | `SUB G2 G1 G0` |
+| Mul | `rs2 * rs1 ➜ rd` | `4'h2` | `MUL G2 G1 G0` |
+| Div | `rs2 / rs1 ➜ rd` | `4'h3` | `DIV G2 G1 G0` |
+| Or | `rs2 \| rs1 ➜ rd` | `4'h4` | `OR G2 G1 G0` |
+| And | `rs2 & rs1 ➜ rd` | `4'h5` | `AND G2 G1 G0` |
+| Xor | `rs2 ^ rs1 ➜ rd` | `4'h6` | `XOR G2 G1 G0` |
+| SLL | `rs1 << rs2 ➜ rd` | `4'h7` | `SLL G2 G1 G0` |
+| SRL | `rs1 >> rs2 ➜ rd` | `4'h8` | `SRL G2 G1 G0` |
 
 `I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |`
 
-| name | operation | `opcode[3:0]` |
-| ---- | --------- | ------------- |
-| Addi | `rd + imm ➜ rd` | `4'h9` |
-| Subi | `rd - imm ➜ rd` | `4'hA` |
+`OP IMM RD`
+
+| name | operation | `opcode[3:0]` | example |
+| ---- | --------- | ------------- | ------- |
+| Addi | `rd + imm ➜ rd` | `4'h9` | `ADDI 42 G4` |
+| Subi | `rd - imm ➜ rd` | `4'hA` | `SUBI 42 G4` |
 
 ## メモリ
 
 `L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
-
 `S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |`
 
-| name | operation | `opcode[3:0]` |
-| ---- | --------- | ------------- |
-| Load | `[rs1 + imm] ➜ rd` | `4'hB` |
-| Store | `rs2 ➜ [rs1 + imm]` | `4'hC` |
+| name | operation | `opcode[3:0]` | example |
+| ---- | --------- | ------------- | ------- |
+| Load | `[rs1 + imm] ➜ rd` | `4'hB` | `LOAD 42 G5 G6` |
+| Store | `rs2 ➜ [rs1 + imm]` | `4'hC` | `STORE G5 G6 42` |
 
 ## ジャンプ/分岐
 
 `J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
 
-| name | operation | `opcode[3:0]` |
-| ---- | --------- | ------------- |
-| Jump and link register | `pc + 2 ➜ rd, imm + rs1 + pc ➜ pc` | `4'hD` |
+| name | operation | `opcode[3:0]` | example |
+| ---- | --------- | ------------- | ------- |
+| Jump and link register | `pc + 2 ➜ rd` <br>`imm + rs1 + pc ➜ pc` | `4'hD` | `JALR 40 G7 G8` |
 
 `B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |`
 
-| name | operation | `opcode[3:0]` |
-| ---- | --------- | ------------- |
-| Branch equal | `if rs2 == rs1 then imm + pc ➜ pc` | `4'hE` |
-| Branch Less than | `if rs2 > rs1 then imm + pc ➜ pc` | `4'hF` |
+| name | operation | `opcode[3:0]` | example |
+| ---- | --------- | ------------- | ------- |
+| Branch equal | `if rs2 == rs1 `<br>`then imm + pc ➜ pc` | `4'hE` | `BEQ B1 B2 -4` | 
+| Branch Less than | `if rs2 > rs1 `<br>`then imm + pc ➜ pc` | `4'hF` | `BLT B1 B2 -12` |
 
 ## サンプルプログラム
 
+0~10の総和
+
 ```
-Addi 0xA, R0, R1
-Add R1, R2, R2
-Subi 0x1, R1, R1
-BLT R1, R0, -4
-JALR R0, 0
+ADDI 0xA B1
+ADD B1 B2 B2
+SUBI 0x1 B1
+BLT B1 ZR -4
+JALR 0 ZR G11
 ```
