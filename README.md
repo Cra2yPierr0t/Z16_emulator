@@ -2,12 +2,14 @@
 
 ## bit field
 
-`R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | `
-`I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |`
-`L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
-`S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |`
-`J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
-`B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |`
+```
+R-Type: | rs2[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] | 
+I-Type: | imm[7:0] | rd[3:0] | opcode[3:0] |
+L-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |
+S-Type: | rs2[3:0] | rs1[3:0] | imm[3:0] | opcode[3:0] |
+J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |
+B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
+```
 
 ## Registers
 
