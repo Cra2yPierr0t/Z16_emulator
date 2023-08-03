@@ -57,7 +57,7 @@ B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
 | name | operation | `opcode[3:0]` | example |
 | ---- | --------- | ------------- | ------- |
 | Addi | `rd + imm ➜ rd` | `4'h9` | `ADDI 42 G4` |
-| Subi | `rd - imm ➜ rd` | `4'hA` | `SUBI 42 G4` |
+| Andi | `rd & imm ➜ rd` | `4'hA` | `ANDI 42 G4` |
 
 ## メモリ
 

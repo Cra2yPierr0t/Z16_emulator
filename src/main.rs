@@ -9,7 +9,7 @@ enum Opcode {
     SLL,
     SRL,
     Addi,
-    Subi,
+    Andi,
     Load,
     Store,
     JALR,
@@ -50,7 +50,7 @@ fn get_instr_opcode(instr: u16) -> Opcode {
         0x7 => Opcode::SLL,
         0x8 => Opcode::SRL,
         0x9 => Opcode::Addi,
-        0xA => Opcode::Subi,
+        0xA => Opcode::Andi,
         0xB => Opcode::Load,
         0xC => Opcode::Store,
         0xD => Opcode::JALR,
@@ -113,17 +113,19 @@ fn alu(opcode: Opcode, data2: i16, data1: i16) -> i16 {
         Opcode::SLL     => data1 << data2,
         Opcode::SRL     => (data1 as u16 >> data2 as u16) as i16,
         Opcode::Addi    => data2 + data1,
-        Opcode::Subi    => data2 - data1,
+        Opcode::Andi    => data2 & data1,
         _               => data2 + data1
     }
 }
 
 fn main() {
-    let InstrMemory: [u16; 5] = [
+    let InstrMemory: [u16; 7] = [
         0x0A19,
         0x1220,
         0x011A,
         0xFC4F,
+        0x204C,
+        0x40CB,
         0x00FD
     ];
 
