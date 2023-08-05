@@ -74,7 +74,7 @@ B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
 `J-Type: | func[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
 
 | name | operation | `opcode[3:0]` | example |
-| ---- | --------- | --------- | ------------- | ------- |
+| ---- | --------- | --------- | ------------- |
 | Jump absolute and link | `pc + 2 ➜ rd` <br>`imm + rs1 ➜ pc` | `4'hC` | `JAL 4 G7 G8` |
 | Jump relative and link | `pc + 2 ➜ rd` <br>`imm + rs1 + pc ➜ pc` | `4'hD` | `JRL 4 G7 G8` |
 
