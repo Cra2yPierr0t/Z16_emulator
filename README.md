@@ -57,7 +57,6 @@ B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
 | name | operation | `opcode[3:0]` | example |
 | ---- | --------- | ------------- | ------- |
 | Addi | `rd + imm ➜ rd` | `4'h9` | `ADDI 42 G4` |
-| Andi | `rd & imm ➜ rd` | `4'hA` | `ANDI 42 G4` |
 
 ## メモリ
 
@@ -67,16 +66,17 @@ B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |
 
 | name | operation | `opcode[3:0]` | example |
 | ---- | --------- | ------------- | ------- |
-| Load | `[rs1 + imm] ➜ rd` | `4'hB` | `LOAD 42 G5 G6` |
-| Store | `rs2 ➜ [rs1 + imm]` | `4'hC` | `STORE G5 G6 42` |
+| Load | `[rs1 + imm] ➜ rd` | `4'hA` | `LOAD 42 G5 G6` |
+| Store | `rs2 ➜ [rs1 + imm]` | `4'hB` | `STORE G5 G6 42` |
 
 ## ジャンプ/分岐
 
-`J-Type: | imm[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
+`J-Type: | func[3:0] | rs1[3:0] | rd[3:0] | opcode[3:0] |`
 
 | name | operation | `opcode[3:0]` | example |
-| ---- | --------- | ------------- | ------- |
-| Jump and link register | `pc + 2 ➜ rd` <br>`imm + rs1 + pc ➜ pc` | `4'hD` | `JALR 40 G7 G8` |
+| ---- | --------- | --------- | ------------- | ------- |
+| Jump absolute and link | `pc + 2 ➜ rd` <br>`imm + rs1 ➜ pc` | `4'hC` | `JAL 4 G7 G8` |
+| Jump relative and link | `pc + 2 ➜ rd` <br>`imm + rs1 + pc ➜ pc` | `4'hD` | `JRL 4 G7 G8` |
 
 `B-Type: | imm[7:0] | rs2[1:0] | rs1[1:0] | opcode[3:0] |`
 

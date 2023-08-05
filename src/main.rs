@@ -9,10 +9,10 @@ enum Opcode {
     SLL,
     SRL,
     Addi,
-    Andi,
     Load,
     Store,
-    JALR,
+    JAL,
+    JRL,
     BEQ,
     BLT,
 }
@@ -29,10 +29,10 @@ enum InstrType {
 fn get_instr_type(instr: u16) -> InstrType {
     match instr & 0x000F {
         0x0..=0x8   => InstrType::RType,
-        0x9..=0xA   => InstrType::IType,
-        0xB         => InstrType::LType,
-        0xC         => InstrType::SType,
-        0xD         => InstrType::JType,
+        0x9         => InstrType::IType,
+        0xA         => InstrType::LType,
+        0xB         => InstrType::SType,
+        0xC..=0xD   => InstrType::JType,
         0xE..=0xF   => InstrType::BType,
         _           => InstrType::RType,
     }
@@ -50,10 +50,10 @@ fn get_instr_opcode(instr: u16) -> Opcode {
         0x7 => Opcode::SLL,
         0x8 => Opcode::SRL,
         0x9 => Opcode::Addi,
-        0xA => Opcode::Andi,
-        0xB => Opcode::Load,
-        0xC => Opcode::Store,
-        0xD => Opcode::JALR,
+        0xA => Opcode::Load,
+        0xB => Opcode::Store,
+        0xC => Opcode::JAL,
+        0xD => Opcode::JRL,
         0xE => Opcode::BEQ,
         0xF => Opcode::BLT,
         _   => Opcode::Add,
@@ -113,7 +113,6 @@ fn alu(opcode: Opcode, data2: i16, data1: i16) -> i16 {
         Opcode::SLL     => data1 << data2,
         Opcode::SRL     => (data1 as u16 >> data2 as u16) as i16,
         Opcode::Addi    => data2 + data1,
-        Opcode::Andi    => data2 & data1,
         _               => data2 + data1
     }
 }
@@ -172,7 +171,15 @@ fn main() {
             InstrType::JType => {
                 RegisterFile[get_rd_addr(instr) as usize] = (pc + 2) as i16;
                 rs1_data    = RegisterFile[get_rs1_addr(instr) as usize];
-                pc = (pc as i16 + get_imm(instr) + rs1_data as i16) as u16;
+                match get_instr_opcode(instr) {
+                    Opcode::JAL => {
+                        pc = (get_imm(instr) + rs1_data as i16) as u16;
+                    },
+                    Opcode::JRL => {
+                        pc = (pc as i16 + get_imm(instr) + rs1_data as i16) as u16;
+                    },
+                    _ => {},
+                }
             },
             InstrType::BType => {
                 rs1_data = RegisterFile[get_rs1_addr(instr) as usize];
