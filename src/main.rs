@@ -118,14 +118,12 @@ fn alu(opcode: Opcode, data2: i16, data1: i16) -> i16 {
 }
 
 fn main() {
-    let InstrMemory: [u16; 7] = [
+    let InstrMemory: [u16; 5] = [
         0x0A19,
         0x1220,
-        0x011A,
+        0xFF19,
         0xFC4F,
-        0x204C,
-        0x40CB,
-        0x00FD
+        0x00FD,
     ];
 
 
